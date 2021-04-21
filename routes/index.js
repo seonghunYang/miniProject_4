@@ -61,9 +61,10 @@ router.post('/callback', async (req, res, next) => {
   switch (value) {
     case 'cafe_survey_results':
       // 설문조사 응답 결과 메세지 전송 (3)
+      const cafe_survey_results = view.cafe_survey_results(actions, action_time)
       await libKakaoWork.sendMessage({
         conversationId: message.conversation_id,
-		...view.cafe_survey_results
+		    ...cafe_survey_results
       });
       break;
     default:

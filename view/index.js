@@ -77,48 +77,50 @@ exports.messages = {
         ],
 	}
 
-exports.cafe_survey_results = {
-		text: '설문조사에 응해주셔서 감사합니다!',
-        blocks: [
-          {
-            type: 'text',
-            text: '설문조사에 응해주셔서 감사합니다! 🎁',
-            markdown: true,
-          },
-          {
-            type: 'text',
-            text: '*답변 내용*',
-            markdown: true,
-          },
-          {
-            type: 'description',
-            term: '평점',
-            content: {
-              type: 'text',
-              text: actions.rating,
-              markdown: false,
-            },
-            accent: true,
-          },
-          {
-            type: 'description',
-            term: '바라는 점',
-            content: {
-              type: 'text',
-              text: actions.wanted,
-              markdown: false,
-            },
-            accent: true,
-          },
-          {
-            type: 'description',
-            term: '시간',
-            content: {
-              type: 'text',
-              text: action_time,
-              markdown: false,
-            },
-            accent: true,
-          },
-        ],
+exports.cafe_survey_results = (actions, action_time) => {
+  return {
+    text: '설문조사에 응해주셔서 감사합니다!',
+    blocks: [
+      {
+        type: 'text',
+        text: '설문조사에 응해주셔서 감사합니다! 🎁',
+        markdown: true,
+      },
+      {
+        type: 'text',
+        text: '*답변 내용*',
+        markdown: true,
+      },
+      {
+        type: 'description',
+        term: '평점',
+        content: {
+          type: 'text',
+          text: actions.rating,
+          markdown: false,
+        },
+        accent: true,
+      },
+      {
+        type: 'description',
+        term: '바라는 점',
+        content: {
+          type: 'text',
+          text: actions.wanted,
+          markdown: false,
+        },
+        accent: true,
+      },
+      {
+        type: 'description',
+        term: '시간',
+        content: {
+          type: 'text',
+          text: action_time,
+          markdown: false,
+        },
+        accent: true,
+      },
+    ],
+  }
 }
