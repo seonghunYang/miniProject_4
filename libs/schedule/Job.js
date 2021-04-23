@@ -18,6 +18,11 @@ class Job {
         this.job.reschedule(this.rule);
     }
 
+    changeJob = (callback) => {
+        this.job.cancel();
+        this.job = schedule.scheduleJob(this.rule, callback);
+    }
+
     cancle = () => {
         this.job.cancel();
     }
