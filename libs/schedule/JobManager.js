@@ -18,6 +18,10 @@ class JobManager {
         this.jobs[userId].changeJob(callback);
     }
 
+    cancelJob = (userId) => {
+        this.jobs[userId].cancel();
+    }
+
 }
 
 module.exports = new JobManager();
