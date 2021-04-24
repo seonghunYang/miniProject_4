@@ -23,7 +23,7 @@ class Job {
         this.job = schedule.scheduleJob(this.rule, callback);
     }
 
-    cancle = () => {
+    cancel = () => {
         this.job.cancel();
     }
 }
