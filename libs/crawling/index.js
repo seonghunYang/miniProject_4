@@ -1,13 +1,12 @@
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 const fs = require("fs");
+const axios = require("axios");
 
 const ROOT_LINK = "http://news.google.com";
 
 exports.crawling = async (keyword) => {
 	try {
-		//puppeteer로 연결
-
 		const htmlTags = await getHtmlUsingPupeteer(keyword);
 		
 		const $ = cheerio.load(htmlTags);
@@ -26,6 +25,14 @@ async function getHtmlUsingPupeteer(keyword) {
 	const htmlTags = await page.content();
 	await browser.close();
 	return htmlTags
+}
+
+async function getHtmlUsingAxios(keyword) {
+	const url = encodeURI(`${ROOT_LINK}/search?q=${keyword}%20when%3A1d&hl=ko&gl=KR&ceid=KR%3Ako`)
+	const page = await axios.get(url);
+	await fs.writeFileSync("test2.html", page.data);
+	return page.data;
+	
 }
 
 function getNews($) {
