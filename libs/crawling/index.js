@@ -6,20 +6,27 @@ const ROOT_LINK = "http://news.google.com";
 
 exports.crawling = async (keyword) => {
 	try {
-		const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox']});
-		const page = await browser.newPage();
-		await page.goto(`${ROOT_LINK}/search?q=${keyword}%20when%3A1d&hl=ko&gl=KR&ceid=KR%3Ako`);
-		const pageTags = await page.content();
-		const $ = cheerio.load(pageTags);
+		//puppeteer로 연결
+
+		const htmlTags = await getHtmlUsingPupeteer(keyword);
+		
+		const $ = cheerio.load(htmlTags);
 		
 		const keywordNews = getNews($);
-		
 		console.log(keywordNews);
-		await browser.close();
 	} catch (err) {
 		console.log(err);
   }
 };
+
+async function getHtmlUsingPupeteer(keyword) {
+	const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox']});
+	const page = await browser.newPage();
+	await page.goto(`${ROOT_LINK}/search?q=${keyword}%20when%3A1d&hl=ko&gl=KR&ceid=KR%3Ako`);
+	const htmlTags = await page.content();
+	await browser.close();
+	return htmlTags
+}
 
 function getNews($) {
 	let newsList = [];
