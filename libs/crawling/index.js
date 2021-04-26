@@ -12,11 +12,22 @@ exports.crawling = async (keyword) => {
 		const $ = cheerio.load(htmlTags);
 		
 		const keywordNews = getNews($);
-		console.log(keywordNews);
+		const a = loadKeyWordNews(keyword)
 	} catch (err) {
 		console.log(err);
   }
 };
+
+function saveKeyWordNews(keyword, newsList) {
+	const newsJsonToString = JSON.stringify(newsList, null, 2);
+	fs.writeFileSync(`${keyword}.json`, newsJsonToString);
+}
+
+function loadKeyWordNews(keyword) {
+	let loadedKeyWordNews = fs.readFileSync(`${keyword}.json`);
+	loadedKeyWordNews = JSON.parse(loadedKeyWordNews);
+	return loadedKeyWordNews
+}
 
 async function getHtmlUsingPupeteer(keyword) {
 	const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox']});
