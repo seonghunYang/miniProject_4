@@ -1,9 +1,31 @@
-exports.cafe_survey = {
+exports.messages = {
+    text: '설문조사 이벤트',
+    blocks: [{
+            type: 'header',
+            text: '📰 키워드 뉴스 알림',
+            style: 'yellow',
+        },
+        {
+            type: 'text',
+            text: '어떤 뉴스를 보고 싶으신지\n 키워드를 골라주세요!',
+            markdown: true,
+        },
+        {
+            type: 'button',
+            action_type: 'call_modal',
+            value: 'keyward_survey',
+            text: '키워드 고르기',
+            style: 'default',
+        },
+    ],
+}
+
+exports.keyward_survey = {
     view: {
         title: '설문조사',
         accept: '설문조사 전송하기',
         decline: '취소',
-        value: 'cafe_survey_results',
+        value: 'keward_survey_results',
         blocks: [{
                 type: 'label',
                 text: '카페 평점을 알려주세요',
@@ -51,29 +73,7 @@ exports.cafe_survey = {
     },
 }
 
-exports.messages = {
-    text: '설문조사 이벤트',
-    blocks: [{
-            type: 'header',
-            text: '☕ 사내 카페 만족도 조사 🥤',
-            style: 'blue',
-        },
-        {
-            type: 'text',
-            text: '어느덧 사내카페가 바뀐지 한달이 되었습니다.\n구르미들이 카페를 이용하고 계신지 의견을 들어보고자 설문 조사를 진행해봅니다!!\n설문에 참여하면 푸짐한 경품 찬스가있으니 상품 꼭 받아가세요! 🎁',
-            markdown: true,
-        },
-        {
-            type: 'button',
-            action_type: 'call_modal',
-            value: 'cafe_survey',
-            text: '설문 참여하기',
-            style: 'default',
-        },
-    ],
-}
-
-exports.cafe_survey_results = (actions, action_time) => {
+exports.keward_survey_results = (actions, action_time) => {
     return {
         text: '설문조사에 응해주셔서 감사합니다!',
         blocks: [{
