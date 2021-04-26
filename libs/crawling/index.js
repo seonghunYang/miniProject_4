@@ -12,7 +12,6 @@ exports.crawling = async (keyword) => {
 		const $ = cheerio.load(htmlTags);
 		
 		const keywordNews = getNews($);
-		const a = loadKeyWordNews(keyword)
 	} catch (err) {
 		console.log(err);
   }
