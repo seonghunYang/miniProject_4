@@ -1,5 +1,5 @@
 exports.messages = {
-    text: '설문조사 이벤트',
+    text: '키워드 고르기',
     blocks: [{
             type: 'header',
             text: '📰 키워드 뉴스 알림',
@@ -22,60 +22,49 @@ exports.messages = {
 
 exports.keyward_survey = {
     view: {
-        title: '설문조사',
-        accept: '설문조사 전송하기',
+        title: '키워드 선택',
+        accept: '키워드 전송하기',
         decline: '취소',
-        value: 'keward_survey_results',
+        value: 'keyward_survey_results',
         blocks: [{
                 type: 'label',
-                text: '카페 평점을 알려주세요',
+                text: '키워드를 알려주세요',
                 markdown: false,
             },
             {
                 type: 'select',
-                name: 'rating',
+                name: 'keyward_num',
                 required: true,
                 options: [{
-                        text: '1점',
+                        text: '종합',
                         value: '1',
                     },
                     {
-                        text: '2점',
+                        text: '시사',
                         value: '2',
                     },
                     {
-                        text: '3점',
+                        text: '스포츠',
                         value: '3',
                     },
                     {
-                        text: '4점',
+                        text: '연예',
                         value: '4',
                     },
                     {
-                        text: '5점',
+                        text: '기술',
                         value: '5',
                     },
                 ],
-                placeholder: '평점',
-            },
-            {
-                type: 'label',
-                text: '바라는 점이 있다면 알려주세요!',
-                markdown: false,
-            },
-            {
-                type: 'input',
-                name: 'wanted',
-                required: false,
-                placeholder: 'ex) 와플을 팔면 좋겠습니다',
-            },
+                placeholder: 'keyward',
+            }
         ],
     },
 }
 
-exports.keward_survey_results = (actions, action_time) => {
+exports.keyward_survey_results = (actions, action_time, crawling_data) => {
     return {
-        text: '설문조사에 응해주셔서 감사합니다!',
+        text: '키워드를 이용해 크롤링을 완료했습니다!',
         blocks: [{
                 type: 'text',
                 text: '설문조사에 응해주셔서 감사합니다! 🎁',

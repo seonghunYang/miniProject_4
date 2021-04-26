@@ -15,8 +15,6 @@ const view = require('../view');
 router.get('/', async (req, res, next) => {
   // 유저 목록 검색 (1)
   const users = await libKakaoWork.getUserList();
-  // await crawler.crawling("인공지능");
-  // 검색된 모든 유저에게 각각 채팅방 생성 (2)
   const conversations = await Promise.all(
     users.map((user) => libKakaoWork.openConversations({ userId: user.id }))
   );
@@ -58,11 +56,12 @@ router.post('/request', async (req, res, next) => {
 // survey에 대한 callback
 router.post('/callback', async (req, res, next) => {
   const { message, actions, action_time, value } = req.body; // 설문조사 결과 확인 (2)
-  
+  const crawling_data = crawler.crawling(actions.keyward_num)
+  console.log(crawling_data)
   switch (value) {
-    case 'cafe_survey_results':
+    case 'keyward_survey_results':
       // 설문조사 응답 결과 메세지 전송 (3)
-      const cafe_survey_results = view.cafe_survey_results(actions, action_time)
+      const cafe_survey_results = view.keyward_survey_results(actions, action_time)
       await libKakaoWork.sendMessage({
         conversationId: message.conversation_id,
 		    ...cafe_survey_results
