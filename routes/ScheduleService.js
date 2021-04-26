@@ -1,4 +1,4 @@
-const JobManager = require('../libs/schedule/JobManager');
+// const JobManager = require('../libs/schedule/JobManager');
 const libKakaoWork = require('../libs/kakaoWork');
 const view = require('../view');
 
