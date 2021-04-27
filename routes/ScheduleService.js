@@ -17,3 +17,4 @@ exports.send_app_install_message_all_users = async() => {
     ]);
     return { users, conversations, messages };
 }
+
