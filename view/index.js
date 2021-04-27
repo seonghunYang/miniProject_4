@@ -1,3 +1,5 @@
+const template = require('../static/template/keyword_survey')
+
 exports.messages = {
     text: '키워드 고르기',
     blocks: [{
@@ -13,7 +15,7 @@ exports.messages = {
         {
             type: 'button',
             action_type: 'call_modal',
-            value: 'keyward_survey',
+            value: 'keyword_survey',
             text: '키워드 고르기',
             style: 'primary',
         },
@@ -23,12 +25,12 @@ exports.messages = {
 	// keyword : 종합:all, 시사:sisa, 스포츠:spo, 연예:interest
 	// 정치:pol, 사회:soc, 세계:int, IT:its
 
-exports.keyward_survey = {
+exports.keyword_survey = {
     view: {
         title: '키워드 선택',
         accept: '확인',
         decline: '취소',
-        value: 'keyward_survey_results',
+        value: 'keyword_survey_results',
         blocks: [{
                 type: 'label',
                 text: '선택하신 키워드와 관련된 뉴스를 알람으로 보내드립니다!',
@@ -36,7 +38,7 @@ exports.keyward_survey = {
             },
             {
                 type: 'select',
-                name: 'keyward_select',
+                name: 'keyword_select',
                 required: true,
                 options: [{
                         text: '종합',
@@ -77,78 +79,23 @@ exports.keyward_survey = {
     },
 }
 
-exports.keyward_survey_results = (result) => {
-	
-
-    return {
-        text: '키워드를 이용해 크롤링을 완료했습니다!',
+exports.keyword_survey_results = (result, keyword) => {
+	const ret = {
+		text: '키워드를 이용해 크롤링을 완료했습니다!',
         blocks: [{
             type: 'header',
-            text: '📰 키워드 뉴스 알림⏰',
+            text: `📰 ${keyword} 뉴스 알림`,
             style: 'yellow',
-        },
-            {
-              type: "context",
-              content: {
-                type:"text",
-                text: `[${result[0].title}](${result[0].url})`,
-                markdown: true
-              },
-              image: {
-                type:"image_link",
-                url: "https://img.icons8.com/metro/52/000000/1-c.png"
-              }
-            },
-            {
-              type: "context",
-              content: {
-                type:"text",
-                text: `[${result[1].title}](${result[1].url})`,
-                markdown: true
-              },
-              image: {
-                type: "image_link",
-                url: "https://img.icons8.com/metro/52/000000/2-c.png"
-              }
-            },
-            {
-              type: "context",
-              content: {
-                type:"text",
-                text: `[${result[2].title}](${result[2].url})`,
-                markdown: true
-              },
-              image: {
-                type: "image_link",
-                url: "https://img.icons8.com/metro/52/000000/3-c.png"
-              }
-            },
-            {
-              type: "context",
-              content: {
-                type:"text",
-                text: `[${result[3].title}](${result[3].url})`,
-                markdown: true
-              },
-              image: {
-                type: "image_link",
-                url: "https://img.icons8.com/metro/52/000000/4-c.png"
-              }
-            },
-            {
-              type: "context",
-              content: {
-                type:"text",
-                text: `[${result[4].title}](${result[4].url})`,
-                markdown: true
-              },
-              image: {
-                type: "image_link",
-                url: "https://img.icons8.com/metro/52/000000/5-c.png"
-              }
-            },
-        ],
-    }
+        }]
+	};
+	
+	for(let i = 0; i < 5; i++){
+		const title = result[i].title;
+		const url = result[i].url;
+		ret.blocks.push(template.keyword_survey_result_item(i+1, title, url));
+	}
+
+	return ret;
 }
 
 exports.app_install = {
