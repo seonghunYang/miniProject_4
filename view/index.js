@@ -59,35 +59,3 @@ exports.keyword_survey_results = (result, keyword) => {
 
 	return ret;
 }
-
-exports.app_install = {
-    "text": "봇 승인 여부",
-    "blocks": [{
-            "type": "header",
-            "text": "봇 승인 여부",
-            "style": "blue"
-        },
-        {
-            "type": "text",
-            "text": "승인하시겠습니까?",
-            "markdown": true
-        },
-        {
-            "type": "action",
-            "elements": [{
-                    "type": "button",
-                    "text": "승인",
-                    "style": "primary"
-                },
-                {
-                    "type": "button",
-                    "text": "거절",
-                    "style": "danger",
-                    "action_type": "submit_action",
-                    "action_name": "reject installing bot",
-                    "value": "reject"
-                }
-            ]
-        }
-    ]
-}
