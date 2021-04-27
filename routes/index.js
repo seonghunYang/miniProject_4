@@ -26,7 +26,7 @@ router.get('/', async (req, res, next) => {
     conversations.map((conversation) =>
       libKakaoWork.sendMessage({
         conversationId: conversation.id,
-		    ...view.messages
+		    ...view.bot_install_msg
       })
     ),
   ])
@@ -43,6 +43,9 @@ router.post('/request', async (req, res, next) => {
       // 설문조사용 모달 전송
       return res.json(view.keyword_survey());
       break;
+	case 'time_select_modal':
+		return res.json(view.time_select_modal());
+		break;
     default:
   }
   res.json("OK");
@@ -53,16 +56,27 @@ router.post('/request', async (req, res, next) => {
 router.post('/callback', async (req, res, next) => {
   const { message, actions, action_time, value } = req.body; // 설문조사 결과 확인 (2)
   crawler.crawling(actions.keyword_select).then((result) => {
-    let keyword = keywords[actions.keyword_select];
+    
     switch (value) {
-      case 'keyword_survey_results':
-        // 설문조사 응답 결과 메세지 전송 (3)
+      
+		
+		case 'keyword_survey_results':
+        let keyword = keywords[actions.keyword_select];
         const keyword_survey_results = view.keyword_survey_results(result, keyword)
         libKakaoWork.sendMessage({
           conversationId: message.conversation_id,
           ...keyword_survey_results
         })
         break;
+		
+		
+		
+		case 'keyword_select_msg':
+        libKakaoWork.sendMessage({
+          conversationId: message.conversation_id,
+          ...view.keyword_select_msg()
+        })
+			break;
       default:
     }
     res.json("OK");
