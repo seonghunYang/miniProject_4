@@ -77,13 +77,12 @@ exports.keyward_survey = {
     },
 }
 
-exports.keyward_survey_results = (result) => {
-    
+exports.keyward_survey_results = (result, keyward) => {
     return {
         text: '키워드를 이용해 크롤링을 완료했습니다!',
         blocks: [{
                 type: 'header',
-                text: '📰 키워드 뉴스 알림',
+                text: `📰 ${keyward} 키워드 뉴스 알림`,
                 style: 'yellow',
             },
             {
