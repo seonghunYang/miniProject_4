@@ -1,4 +1,5 @@
 const template = require('../static/template/keyword_survey')
+const keywords = require('../static/data/keywords');
 
 exports.messages = {
     text: '키워드 고르기',
@@ -25,58 +26,19 @@ exports.messages = {
 	// keyword : 종합:all, 시사:sisa, 스포츠:spo, 연예:interest
 	// 정치:pol, 사회:soc, 세계:int, IT:its
 
-exports.keyword_survey = {
-    view: {
-        title: '키워드 선택',
-        accept: '확인',
-        decline: '취소',
-        value: 'keyword_survey_results',
-        blocks: [{
-                type: 'label',
-                text: '선택하신 키워드와 관련된 뉴스를 알람으로 보내드립니다!',
-                markdown: true,
-            },
-            {
-                type: 'select',
-                name: 'keyword_select',
-                required: true,
-                options: [{
-                        text: '종합',
-                        value: 'all',
-                    },
-                    {
-                        text: '시사',
-                        value: 'sisa',
-                    },
-                    {
-                        text: '스포츠',
-                        value: 'spo',
-                    },
-                    {
-                        text: '연예',
-                        value: 'interest',
-                    },
-                    {
-                        text: '정치',
-                        value: 'pol',
-                    },
-                    {
-                        text: '사회',
-                        value: 'soc',
-                    },
-                    {
-                        text: '세계',
-                        value: 'int',
-                    },
-                    {
-                        text: 'IT',
-                        value: 'its',
-                    },
-                ],
-                placeholder: '키워드를 선택해주세요!',
-            }
-        ],
-    },
+exports.keyword_survey = () => {
+	
+	const options = [];
+	
+	for(keyword_eng in keywords){
+		const keyword_kor = keywords[keyword_eng];
+		options.push({
+			text : keyword_kor,
+			value : keyword_eng
+		});
+	}
+	
+	return template.keyword_survey(options);
 }
 
 exports.keyword_survey_results = (result, keyword) => {

@@ -9,6 +9,8 @@ const crawler = require('../libs/crawling');
 
 // view 부분 import
 const view = require('../view');
+// 키워드 데이터
+const keywords = require('../static/data/keywords')
 
 
 // routing 진입점
@@ -43,7 +45,7 @@ router.post('/request', async (req, res, next) => {
   switch (value) {
     case 'keyword_survey':
       // 설문조사용 모달 전송
-      return res.json(view.keyword_survey);
+      return res.json(view.keyword_survey());
       break;
     default:
   }
@@ -55,35 +57,7 @@ router.post('/request', async (req, res, next) => {
 router.post('/callback', async (req, res, next) => {
   const { message, actions, action_time, value } = req.body; // 설문조사 결과 확인 (2)
   crawler.crawling(actions.keyword_select).then((result) => {
-    let keyword = ""
-    switch (actions.keyword_select) {
-      case 'all':
-        keyword = "종합"
-        break;
-      case 'sisa':
-        keyword = "시사"
-        break;
-      case 'spo':
-        keyword = "스포츠"
-        break;
-      case 'interest':
-        keyword = "연예"
-        break;
-      case 'pol':
-        keyword = "정치"
-        break;
-      case 'soc':
-        keyword = "사회"
-        break;
-      case 'int':
-        keyword = "세계"
-        break;
-      case 'its':
-        keyword = "IT"
-        break;
-      default:
-        
-    }
+    let keyword = keywords[actions.keyword_select];
     switch (value) {
       case 'keyword_survey_results':
         // 설문조사 응답 결과 메세지 전송 (3)
