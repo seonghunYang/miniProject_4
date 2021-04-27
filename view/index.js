@@ -2,12 +2,12 @@ exports.messages = {
     text: '키워드 고르기',
     blocks: [{
             type: 'header',
-            text: '📰 키워드 뉴스 알림',
+            text: '📰 키워드 뉴스 알림⏰',
             style: 'yellow',
         },
         {
             type: 'text',
-            text: '어떤 뉴스를 보고 싶으신지\n 키워드를 골라주세요!',
+            text: '어떤 뉴스를 보고 싶으신지\n 키워드를 골라주세요!😀',
             markdown: true,
         },
         {
@@ -15,7 +15,7 @@ exports.messages = {
             action_type: 'call_modal',
             value: 'keyward_survey',
             text: '키워드 고르기',
-            style: 'default',
+            style: 'primary',
         },
     ],
 }
@@ -26,17 +26,17 @@ exports.messages = {
 exports.keyward_survey = {
     view: {
         title: '키워드 선택',
-        accept: '키워드 전송하기',
+        accept: '확인',
         decline: '취소',
         value: 'keyward_survey_results',
         blocks: [{
                 type: 'label',
-                text: '키워드를 알려주세요',
-                markdown: false,
+                text: '선택하신 키워드와 관련된 뉴스를 알람으로 보내드립니다!',
+                markdown: true,
             },
             {
                 type: 'select',
-                name: 'keyward',
+                name: 'keyward_select',
                 required: true,
                 options: [{
                         text: '종합',
@@ -71,20 +71,22 @@ exports.keyward_survey = {
                         value: 'its',
                     },
                 ],
-                placeholder: 'keyward',
+                placeholder: '키워드를 선택해주세요!',
             }
         ],
     },
 }
 
-exports.keyward_survey_results = (result, keyward) => {
+exports.keyward_survey_results = (result) => {
+	
+
     return {
         text: '키워드를 이용해 크롤링을 완료했습니다!',
         blocks: [{
-                type: 'header',
-                text: `📰 ${keyward} 키워드 뉴스 알림`,
-                style: 'yellow',
-            },
+            type: 'header',
+            text: '📰 키워드 뉴스 알림⏰',
+            style: 'yellow',
+        },
             {
               type: "context",
               content: {
@@ -93,8 +95,8 @@ exports.keyward_survey_results = (result, keyward) => {
                 markdown: true
               },
               image: {
-                type: "image_link",
-                url: "https://t1.kakaocdn.net/kakaowork/resources/block-kit/context/ppt@3x.png"
+                type:"image_link",
+                url: "https://img.icons8.com/metro/52/000000/1-c.png"
               }
             },
             {
@@ -106,7 +108,7 @@ exports.keyward_survey_results = (result, keyward) => {
               },
               image: {
                 type: "image_link",
-                url: "https://t1.kakaocdn.net/kakaowork/resources/block-kit/context/pdf@3x.png"
+                url: "https://img.icons8.com/metro/52/000000/2-c.png"
               }
             },
             {
@@ -118,7 +120,7 @@ exports.keyward_survey_results = (result, keyward) => {
               },
               image: {
                 type: "image_link",
-                url: "https://t1.kakaocdn.net/kakaowork/resources/block-kit/context/etc@3x.png"
+                url: "https://img.icons8.com/metro/52/000000/3-c.png"
               }
             },
             {
@@ -130,7 +132,7 @@ exports.keyward_survey_results = (result, keyward) => {
               },
               image: {
                 type: "image_link",
-                url: "https://t1.kakaocdn.net/kakaowork/resources/block-kit/context/ppt@3x.png"
+                url: "https://img.icons8.com/metro/52/000000/4-c.png"
               }
             },
             {
@@ -142,7 +144,7 @@ exports.keyward_survey_results = (result, keyward) => {
               },
               image: {
                 type: "image_link",
-                url: "https://t1.kakaocdn.net/kakaowork/resources/block-kit/context/audio@3x.png"
+                url: "https://img.icons8.com/metro/52/000000/5-c.png"
               }
             },
         ],
