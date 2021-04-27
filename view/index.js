@@ -20,6 +20,9 @@ exports.messages = {
     ],
 }
 
+	// keyword : 종합:all, 시사:sisa, 스포츠:spo, 연예:interest
+	// 정치:pol, 사회:soc, 세계:int, IT:its
+
 exports.keyward_survey = {
     view: {
         title: '키워드 선택',
@@ -33,27 +36,39 @@ exports.keyward_survey = {
             },
             {
                 type: 'select',
-                name: 'keyward_num',
+                name: 'keyward',
                 required: true,
                 options: [{
                         text: '종합',
-                        value: '1',
+                        value: 'all',
                     },
                     {
                         text: '시사',
-                        value: '2',
+                        value: 'sisa',
                     },
                     {
                         text: '스포츠',
-                        value: '3',
+                        value: 'spo',
                     },
                     {
                         text: '연예',
-                        value: '4',
+                        value: 'interest',
                     },
                     {
-                        text: '기술',
-                        value: '5',
+                        text: '정치',
+                        value: 'pol',
+                    },
+                    {
+                        text: '사회',
+                        value: 'soc',
+                    },
+                    {
+                        text: '세계',
+                        value: 'int',
+                    },
+                    {
+                        text: 'IT',
+                        value: 'its',
                     },
                 ],
                 placeholder: 'keyward',
@@ -62,48 +77,74 @@ exports.keyward_survey = {
     },
 }
 
-exports.keyward_survey_results = (actions, action_time, crawling_data) => {
+exports.keyward_survey_results = (result) => {
+    
     return {
         text: '키워드를 이용해 크롤링을 완료했습니다!',
         blocks: [{
-                type: 'text',
-                text: '설문조사에 응해주셔서 감사합니다! 🎁',
-                markdown: true,
+                type: 'header',
+                text: '📰 키워드 뉴스 알림',
+                style: 'yellow',
             },
             {
-                type: 'text',
-                text: '*답변 내용*',
-                markdown: true,
+              type: "context",
+              content: {
+                type:"text",
+                text: `[${result[0].title}](${result[0].url})`,
+                markdown: true
+              },
+              image: {
+                type: "image_link",
+                url: "https://t1.kakaocdn.net/kakaowork/resources/block-kit/context/ppt@3x.png"
+              }
             },
             {
-                type: 'description',
-                term: '평점',
-                content: {
-                    type: 'text',
-                    text: actions.rating,
-                    markdown: false,
-                },
-                accent: true,
+              type: "context",
+              content: {
+                type:"text",
+                text: `[${result[1].title}](${result[1].url})`,
+                markdown: true
+              },
+              image: {
+                type: "image_link",
+                url: "https://t1.kakaocdn.net/kakaowork/resources/block-kit/context/pdf@3x.png"
+              }
             },
             {
-                type: 'description',
-                term: '바라는 점',
-                content: {
-                    type: 'text',
-                    text: actions.wanted,
-                    markdown: false,
-                },
-                accent: true,
+              type: "context",
+              content: {
+                type:"text",
+                text: `[${result[2].title}](${result[2].url})`,
+                markdown: true
+              },
+              image: {
+                type: "image_link",
+                url: "https://t1.kakaocdn.net/kakaowork/resources/block-kit/context/etc@3x.png"
+              }
             },
             {
-                type: 'description',
-                term: '시간',
-                content: {
-                    type: 'text',
-                    text: action_time,
-                    markdown: false,
-                },
-                accent: true,
+              type: "context",
+              content: {
+                type:"text",
+                text: `[${result[3].title}](${result[3].url})`,
+                markdown: true
+              },
+              image: {
+                type: "image_link",
+                url: "https://t1.kakaocdn.net/kakaowork/resources/block-kit/context/ppt@3x.png"
+              }
+            },
+            {
+              type: "context",
+              content: {
+                type:"text",
+                text: `[${result[4].title}](${result[4].url})`,
+                markdown: true
+              },
+              image: {
+                type: "image_link",
+                url: "https://t1.kakaocdn.net/kakaowork/resources/block-kit/context/audio@3x.png"
+              }
             },
         ],
     }
