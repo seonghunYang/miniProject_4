@@ -31,11 +31,7 @@ router.get('/', async (req, res, next) => {
     ),
   ])
   // 응답값은 자유롭게 작성하셔도 됩니다.
-  res.json({
-    users,
-    conversations,
-    messages,
-  });
+  res.json("OK");
 });
 
 
@@ -49,7 +45,7 @@ router.post('/request', async (req, res, next) => {
       break;
     default:
   }
-  res.json({});
+  res.json("OK");
 });
 
 
@@ -69,7 +65,7 @@ router.post('/callback', async (req, res, next) => {
         break;
       default:
     }
-    res.json({ result: true });
+    res.json("OK");
   }).catch(err => {
     console.log(err)
   })
