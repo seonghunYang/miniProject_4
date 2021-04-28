@@ -60,9 +60,15 @@ exports.time_select_modal = () => {
                 },
                 {
                     "type": "input",
-                    "name": "time",
+                    "name": "hour",
                     "required": false,
-                    "placeholder": "ex) 12:30"
+                    "placeholder": "ex) 16"
+                },
+				{
+                    "type": "input",
+                    "name": "minute",
+                    "required": false,
+                    "placeholder": "ex) 55"
                 }
             ]
         }
