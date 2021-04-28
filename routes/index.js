@@ -9,6 +9,7 @@ const crawler = require('../libs/crawling');
 // view 부분 import
 const view = require('../view');
 const KeywordService = require('./KeywordService');
+const ScheduleService = require('./ScheduleService');
 
 router.get('/', async (req, res, next) => {
 
@@ -63,8 +64,27 @@ router.post('/callback', async (req, res, next) => {
         action_time,
         value
     } = req.body;
-
     switch (value) {
+		case 'check_and_set_time_service':
+			if(ScheduleService.is_valid_time(actions.hour, actions.minute)){
+				const hour = Number(actions.hour);
+				const minute = Number(actions.minute);
+				ScheduleService.create_job_and_set_rule(
+					message.user_id,
+					hour,
+					minute
+				);
+				ScheduleService.send_set_rule_ok_callback_msg(
+					message.conversation_id,
+					hour,
+					minute
+				);
+			}else{
+				ScheduleService.send_set_rule_fail_callback_msg(
+					message.conversation_id
+				);
+			}
+			break;
         case 'keyword_survey_results':
             await KeywordService.send_keyword_survey_result_msg(
                 actions.keyword_select,
