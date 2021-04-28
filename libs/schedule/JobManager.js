@@ -6,19 +6,31 @@ class JobManager {
         this.jobs = {};
     }
 
-    addJob = (userId, hour, minute, callback) => {
-        this.jobs[userId] = new Job(hour, minute, callback);
+    createJob(userId){
+        this.jobs[userId] = new Job();
     }
+	
+	startJob(userId){
+		this.jobs[userId].start();
+	}
+	
+	setJobRule(userId, hour, minute){
+		this.jobs[userId].setRule(hour, minute);
+	}
+	
+	setJobCallback(userId, callback){
+		this.jobs[userId].setCallback(callback);
+	}
 
-    rescheduleJob = (userId, hour, minute) => {
+    rescheduleJob(userId, hour, minute){
         this.jobs[userId].reschedule(hour, minute);
     }
 
-    changeJob = (userId, callback) => {
+    changeJob(userId, callback){
         this.jobs[userId].changeJob(callback);
     }
 
-    cancelJob = (userId) => {
+    cancelJob(userId){
         this.jobs[userId].cancel();
     }
 

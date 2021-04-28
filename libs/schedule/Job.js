@@ -2,28 +2,36 @@ const schedule = require('node-schedule');
 
 class Job {
 
-    constructor(hour, minute, callback) {
+    constructor() {
         this.rule = new schedule.RecurrenceRule();
-        this.setRule(hour, minute);
-        this.job = schedule.scheduleJob(this.rule, callback);
-    }
+        this.job;
+    	this.callback;
+	}
 
-    setRule = (hour, minute) => {
+    setRule(hour, minute){
         this.rule.hour = hour;
         this.rule.minute = minute;
     }
+	
+	setCallback(callback){
+		this.callback = callback;
+	}
 
-    reschedule = (hour, minute) => {
+    reschedule(hour, minute){
         this.setRule(hour, minute);
         this.job.reschedule(this.rule);
     }
 
-    changeJob = (callback) => {
+    changeJob(callback){
         this.job.cancel();
         this.job = schedule.scheduleJob(this.rule, callback);
     }
+	
+	start(){
+		this.job = schedule.scheduleJob(this.rule, this.callback);
+	}
 
-    cancel = () => {
+    cancel(){
         this.job.cancel();
     }
 }
