@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
         }))
     );
 
-  
+
     const messages = await Promise.all([
         conversations.map((conversation) =>
             libKakaoWork.sendMessage({
@@ -38,20 +38,20 @@ router.post('/request', async (req, res, next) => {
         message,
         value
     } = req.body;
-	
+
     switch (value) {
-			
+
         case 'keyword_survey':
             return res.json(view.keyword_survey());
             break;
-			
+
         case 'time_select_modal':
             return res.json(view.time_select_modal());
             break;
-			
+
         default:
     }
-	
+
     res.json("OK");
 });
 
@@ -62,27 +62,27 @@ router.post('/callback', async (req, res, next) => {
         actions,
         action_time,
         value
-    } = req.body; 
-	
-        switch (value) {
-            case 'keyword_survey_results':
-				await KeywordService.send_keyword_survey_result_msg(
-					actions.keyword_select,
-					message.conversation_id
-				);
-                break;
+    } = req.body;
 
-            case 'keyword_select_msg':
-				await KeywordService.send_keyword_select_msg(
-					message.conversation_id
-				);
-                break;
-				
-            default:
-        }
-		
-        res.json("OK");
-		
+    switch (value) {
+        case 'keyword_survey_results':
+            await KeywordService.send_keyword_survey_result_msg(
+                actions.keyword_select,
+                message.conversation_id
+            );
+            break;
+
+        case 'keyword_select_msg':
+            await KeywordService.send_keyword_select_msg(
+                message.conversation_id
+            );
+            break;
+
+        default:
+    }
+
+    res.json("OK");
+
 });
 
 module.exports = router;
