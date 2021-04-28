@@ -52,7 +52,7 @@ exports.time_select_modal = () => {
             "title": "뉴스 끌올(ing) 시간 설정하기",
             "accept": "확인",
             "decline": "취소",
-            "value": "keyword_select_msg",
+            "value": "check_and_set_time_service",
             "blocks": [{
                     "type": "label",
                     "text": "*끌올(ing) 👆* 하실 시간을 정해주세요!\n\n설정하신 시간마다 뉴스를 보내드릴게요😆",
@@ -101,6 +101,47 @@ exports.keyword_select_msg = () => {
             },
         ],
     }
+}
+
+exports.set_rule_ok_callback_msg = (hour, minute) => {
+	return {
+		text : "이제 설정한 시간에 알림 뉴스를 보실 수 있습니다!",
+		blocks: [
+			header_template.header(""),
+			{
+				type: 'text',
+				text: `매일 ${hour}시 ${minute}분에 알림뉴스를 보실 수 있습니다\n이제 보실 키워드를 골라주세요!`
+			},
+			{
+                type: 'button',
+                action_type: 'call_modal',
+                value: 'keyword_survey',
+                text: '키워드 고르기',
+                style: 'primary',
+            },
+			
+		]
+	}
+}
+
+exports.set_rule_fail_callback_msg = () => {
+	return {
+		text : "시간을 다시 설정해주세요😥",
+		blocks: [
+			header_template.header(""),
+			{
+				type: 'text',
+				text: `시간을 다시 설정해주세요.😥`
+			},
+			{
+            "type": "button",
+            "text": "시간 설정",
+            "style": "primary",
+            "action_type": 'call_modal',
+            "value": "time_select_modal"
+        	}
+		]
+	}
 }
 
 exports.keyword_survey = () => {
