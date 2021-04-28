@@ -3,34 +3,59 @@ const header_template = require('../static/template/header');
 const keywords = require('../static/data/keywords');
 
 exports.bot_install_msg = {
-    "text": "키워드 뉴스 알림 봇을 설치해보세요!",
+    "text": "뉴스 끌올ing 봇을 설치해보세요!",
     "blocks": [
-        header_template.header(""),
-        {
-            "type": "text",
-            "text": "안녕하세요. 저는 키워드 뉴스 알림⏰ 봇입니다! \n\n저를 설치하시면 설정하신 시간마다 관심 키워드에 관한 뉴스를 보실 수 있습니다. \n\n설치하실려면 시간설정버튼을 눌려주세요! ",
-            "markdown": true
-        },
-        {
-            "type": "button",
-            "text": "시간 설정",
-            "style": "primary",
-            "action_type": 'call_modal',
-            "value": "time_select_modal"
-        }
-    ]
+    header_template.header(""),
+    {
+      "type": "text",
+      "text": "*안녕하세요* 😊",
+      "markdown": true
+    },
+    {
+      "type": "text",
+      "text": "저는 각종 *키워드별 뉴스* 📰를\n *끌올(ing)👆* 하는 봇이에요!",
+      "markdown": true
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "text",
+      "text": "\n*키워드*와 *시간*을 설정해 주시면 \n설정하신 시간마다 ⏰, \n해당 *키워드에 관한 인기 뉴스*를 \n*끌올(ing)* 하실 수 있습니다!\n ",
+      "markdown": true
+    },
+    {
+      "type": "section",
+      "content": {
+        "type": "text",
+        "text": "1️⃣ 제일 먼저\n뉴스를 *끌올(ing) 하실*\n*시간*을 설정해 주세요!",
+        "markdown": true
+      },
+      "accessory": {
+        "type": "image_link",
+        "url": "https://img.icons8.com/wired/2x/timer.png"
+      }
+    },
+    {
+      "type": "button",
+      "text": "시간 설정",
+      "style": "primary",
+      "action_type": "call_modal",
+      "value": "time_select_modal"
+    }
+  ]
 }
 
 exports.time_select_modal = () => {
     return {
         view: {
-            "title": "뉴스 알림 시간",
+            "title": "뉴스 끌올(ing) 시간 설정하기",
             "accept": "확인",
             "decline": "취소",
             "value": "keyword_select_msg",
             "blocks": [{
                     "type": "label",
-                    "text": "키워드 뉴스를 보실 시간을 정해주세요!\n 정상적인 시간을 설정하지 않으시면 알람설정이 되지 않습니다!",
+                    "text": "*끌올(ing) 👆* 하실 시간을 정해주세요!\n\n설정하신 시간마다 뉴스를 보내드릴게요😆",
                     "markdown": true
                 },
                 {
@@ -50,9 +75,16 @@ exports.keyword_select_msg = () => {
         blocks: [
             header_template.header(""),
             {
-                type: 'text',
-                text: '어떤 뉴스를 보고 싶으신지\n 키워드를 골라주세요!😀',
-                markdown: true,
+              "type": "section",
+              "content": {
+                "type": "text",
+                "text": "2️⃣ 다음으로\n시간마다 *끌올(ing) 하실*\n*키워드*를 설정해 주세요!",
+                "markdown": true
+              },
+              "accessory": {
+                "type": "image_link",
+                "url": "https://img.icons8.com/ios/2x/separate-using-a-key-word.png"
+              }
             },
             {
                 type: 'button',
@@ -83,7 +115,7 @@ exports.keyword_survey = () => {
 exports.keyword_survey_results = (result, keyword) => {
 	
     const ret = {
-        text: '키워드를 이용해 크롤링을 완료했습니다!',
+        text: '키워드를 이용해 끌올(ing)을 완료했습니다!',
         blocks: [
             header_template.header(keyword)
         ]
