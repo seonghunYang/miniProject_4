@@ -1,126 +1,131 @@
-exports.cafe_survey = {
-        view: {
-          title: '설문조사',
-          accept: '설문조사 전송하기',
-          decline: '취소',
-          value: 'cafe_survey_results',
-          blocks: [
-            {
-              type: 'label',
-              text: '카페 평점을 알려주세요',
-              markdown: false,
-            },
-            {
-              type: 'select',
-              name: 'rating',
-              required: true,
-              options: [
-                {
-                  text: '1점',
-                  value: '1',
-                },
-                {
-                  text: '2점',
-                  value: '2',
-                },
-                {
-                  text: '3점',
-                  value: '3',
-                },
-                {
-                  text: '4점',
-                  value: '4',
-                },
-                {
-                  text: '5점',
-                  value: '5',
-                },
-              ],
-              placeholder: '평점',
-            },
-            {
-              type: 'label',
-              text: '바라는 점이 있다면 알려주세요!',
-              markdown: false,
-            },
-            {
-              type: 'input',
-              name: 'wanted',
-              required: false,
-              placeholder: 'ex) 와플을 팔면 좋겠습니다',
-            },
-          ],
-        },
+const keyword_survey_template = require('../static/template/keyword_survey')
+const header_template = require('../static/template/header');
+const keywords = require('../static/data/keywords');
+
+exports.bot_install_msg = {
+    "text": "뉴스 끌올ing 봇을 설치해보세요!",
+    "blocks": [
+    header_template.header(""),
+    {
+      "type": "text",
+      "text": "*안녕하세요*  😊",
+      "markdown": true
+    },
+    {
+      "type": "text",
+      "text": "저는 *끌올링(ing) 봇*이라고 해요! \n지금부터, \n\n *키워드별 뉴스 정기 구독 서비스* \n   *'📰 뉴스 끌올링(ing) ⏰'*\n\n의 이용을 도와드릴게요! 💪",
+      "markdown": true
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "text",
+      "text": "\n*키워드*와 *시간*을 설정해 주시면 \n설정하신 시간마다 ⏰, \n해당 *키워드에 관한 인기 뉴스*를 \n*끌올(ing)* 하실 수 있습니다!\n ",
+      "markdown": true
+    },
+    {
+      "type": "section",
+      "content": {
+        "type": "text",
+        "text": "1️⃣ 제일 먼저\n뉴스를 *끌올(ing) 하실*\n*시간*을 설정해 주세요!",
+        "markdown": true
+      },
+      "accessory": {
+        "type": "image_link",
+        "url": "https://img.icons8.com/wired/2x/timer.png"
       }
+    },
+    {
+      "type": "button",
+      "text": "시간 설정",
+      "style": "primary",
+      "action_type": "call_modal",
+      "value": "time_select_modal"
+    }
+  ]
+}
 
-exports.messages = {
-		text: '설문조사 이벤트',
+exports.time_select_modal = () => {
+    return {
+        view: {
+            "title": "뉴스 끌올(ing) 시간 설정하기",
+            "accept": "확인",
+            "decline": "취소",
+            "value": "keyword_select_msg",
+            "blocks": [{
+                    "type": "label",
+                    "text": "*끌올(ing) 👆* 하실 시간을 정해주세요!\n\n설정하신 시간마다 뉴스를 보내드릴게요😆",
+                    "markdown": true
+                },
+                {
+                    "type": "input",
+                    "name": "time",
+                    "required": false,
+                    "placeholder": "ex) 12:30"
+                }
+            ]
+        }
+    }
+}
+
+exports.keyword_select_msg = () => {
+    return {
+        text: '키워드 고르기',
         blocks: [
-          {
-            type: 'header',
-            text: '☕ 사내 카페 만족도 조사 🥤',
-            style: 'blue',
-          },
-          {
-            type: 'text',
-            text:
-              '어느덧 사내카페가 바뀐지 한달이 되었습니다.\n구르미들이 카페를 이용하고 계신지 의견을 들어보고자 설문 조사를 진행해봅니다!!\n설문에 참여하면 푸짐한 경품 찬스가있으니 상품 꼭 받아가세요! 🎁',
-            markdown: true,
-          },
-          {
-            type: 'button',
-            action_type: 'call_modal',
-            value: 'cafe_survey',
-            text: '설문 참여하기',
-            style: 'default',
-          },
+            header_template.header(""),
+            {
+              "type": "section",
+              "content": {
+                "type": "text",
+                "text": "2️⃣ 다음으로\n시간마다 *끌올(ing) 하실*\n*키워드*를 설정해 주세요!",
+                "markdown": true
+              },
+              "accessory": {
+                "type": "image_link",
+                "url": "https://img.icons8.com/ios/2x/separate-using-a-key-word.png"
+              }
+            },
+            {
+                type: 'button',
+                action_type: 'call_modal',
+                value: 'keyword_survey',
+                text: '키워드 고르기',
+                style: 'primary',
+            },
         ],
-	}
+    }
+}
 
-exports.cafe_survey_results = (actions, action_time) => {
-  return {
-    text: '설문조사에 응해주셔서 감사합니다!',
-    blocks: [
-      {
-        type: 'text',
-        text: '설문조사에 응해주셔서 감사합니다! 🎁',
-        markdown: true,
-      },
-      {
-        type: 'text',
-        text: '*답변 내용*',
-        markdown: true,
-      },
-      {
-        type: 'description',
-        term: '평점',
-        content: {
-          type: 'text',
-          text: actions.rating,
-          markdown: false,
-        },
-        accent: true,
-      },
-      {
-        type: 'description',
-        term: '바라는 점',
-        content: {
-          type: 'text',
-          text: actions.wanted,
-          markdown: false,
-        },
-        accent: true,
-      },
-      {
-        type: 'description',
-        term: '시간',
-        content: {
-          type: 'text',
-          text: action_time,
-          markdown: false,
-        },
-        accent: true,
-      },
-    ],
-  }
+exports.keyword_survey = () => {
+
+    const options = [];
+
+    for (keyword_eng in keywords) {
+        const keyword_kor = keywords[keyword_eng];
+        options.push({
+            text: keyword_kor,
+            value: keyword_eng
+        });
+    }
+
+    return keyword_survey_template.keyword_survey(options);
+}
+
+exports.keyword_survey_results = (result, keyword) => {
+	
+    const ret = {
+        text: '키워드를 이용해 끌올(ing)을 완료했습니다!',
+        blocks: [
+            header_template.header(keyword)
+        ]
+    };
+
+    for (let i = 0; i < 5; i++) {
+        const title = result[i].title;
+        const url = result[i].url;
+        ret.blocks.push(keyword_survey_template.keyword_survey_result_item(i + 1, title, url));
+    }
+
+    return ret;
 }
