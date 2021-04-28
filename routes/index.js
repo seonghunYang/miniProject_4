@@ -91,13 +91,6 @@ router.post('/callback', async (req, res, next) => {
                 message.conversation_id
             );
             break;
-
-        case 'keyword_select_msg':
-            await KeywordService.send_keyword_select_msg(
-                message.conversation_id
-            );
-            break;
-
         default:
     }
 
