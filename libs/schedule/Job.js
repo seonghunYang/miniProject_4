@@ -1,4 +1,4 @@
-const schedule = require('node-schedule');
+const schedule = require('node-schedule-tz');
 
 class Job {
 
@@ -9,8 +9,10 @@ class Job {
 	}
 
     setRule(hour, minute){
-        this.rule.hour = hour;
-        this.rule.minute = minute;
+        // this.rule.hour = hour;
+        // this.rule.minute = minute;
+		// this.rule.tz='Asia/Seoul';
+		this.rule.second = 1;
     }
 	
 	setCallback(callback){
