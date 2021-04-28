@@ -1,5 +1,7 @@
 const JobManager = require('../libs/schedule/JobManager');
 const libKakaoWork = require('../libs/kakaoWork');
+const keywords = require('../static/data/keywords');
+const crawler = require('../libs/crawling');
 const view = require('../view');
 
 exports.send_app_install_message_all_users = async() => {
@@ -16,6 +18,31 @@ exports.send_app_install_message_all_users = async() => {
         ),
     ]);
     return { users, conversations, messages };
+}
+
+exports.set_job_and_start = (user_id, selected_keyword, conversation_id) => {
+	JobManager.setJobCallback(user_id, () => {
+		crawler.crawling(selected_keyword)
+			.then((result) => {
+			const keyword = keywords[selected_keyword];
+			libKakaoWork.sendMessage({
+				conversationId: conversation_id,
+				...view.keyword_survey_results(result, keyword)
+			})
+		})
+	})
+	JobManager.startJob(user_id);
+}
+
+exports.send_set_job_callback_msg = (selected_keyword, conversation_id) => {
+	crawler.crawling(selected_keyword)
+			.then((result) => {
+			const keyword = keywords[selected_keyword];
+			libKakaoWork.sendMessage({
+				conversationId: conversation_id,
+				...view.set_job_callback_msg(result, keyword)
+			})
+		})
 }
 
 exports.is_valid_time = (hour, minute) => {

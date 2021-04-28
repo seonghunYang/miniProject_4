@@ -69,27 +69,33 @@ router.post('/callback', async (req, res, next) => {
 			if(ScheduleService.is_valid_time(actions.hour, actions.minute)){
 				const hour = Number(actions.hour);
 				const minute = Number(actions.minute);
-				ScheduleService.create_job_and_set_rule(
+				await ScheduleService.create_job_and_set_rule(
 					message.user_id,
 					hour,
 					minute
 				);
-				ScheduleService.send_set_rule_ok_callback_msg(
+				await ScheduleService.send_set_rule_ok_callback_msg(
 					message.conversation_id,
 					hour,
 					minute
 				);
 			}else{
-				ScheduleService.send_set_rule_fail_callback_msg(
+				await ScheduleService.send_set_rule_fail_callback_msg(
 					message.conversation_id
 				);
 			}
 			break;
         case 'keyword_survey_results':
-            await KeywordService.send_keyword_survey_result_msg(
-                actions.keyword_select,
-                message.conversation_id
-            );
+
+			await ScheduleService.set_job_and_start(
+				message.user_id,
+				actions.keyword_select,
+				message.conversation_id
+			)
+			await ScheduleService.send_set_job_callback_msg(
+				actions.keyword_select,
+				message.conversation_id
+			)
             break;
         default:
     }
