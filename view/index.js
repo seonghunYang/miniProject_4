@@ -144,6 +144,32 @@ exports.set_rule_fail_callback_msg = () => {
     }
 }
 
+exports.set_job_callback_msg = (result, keyword) => {
+	const ret = {
+        text: '키워드를 이용해 크롤링을 완료했습니다!',
+        blocks: [
+            header_template.header(keyword)
+        ]
+    };
+
+    for (let i = 0; i < 5; i++) {
+        const title = result[i].title;
+        const url = result[i].url;
+        ret.blocks.push(keyword_survey_template.keyword_survey_result_item(i + 1, title, url));
+    }
+	
+	ret.blocks.push( {
+      "type": "divider"
+    });
+	ret.blocks.push({
+      "type": "text",
+      "text": "앞으로 위와 같은 뉴스를 보실 수 있습니다. 설치해주셔서 감사힙니다!",
+      "markdown": true
+    });
+
+    return ret;
+}
+
 exports.keyword_survey = () => {
 
     const options = [];
