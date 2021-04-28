@@ -22,17 +22,3 @@ exports.send_keyword_survey_result_msg = async (selected_keyword, conversation_i
             });
         })
 }
-
-exports.set_job_and_start = (user_id, selected_keyword, conversation_id) => {
-	JobManager.setJobCallback(user_id, () => {
-		crawler.crawling(selected_keyword)
-			.then((result) => {
-			const keyword = keywords[selected_keyword];
-			libKakaoWork.sendMessage({
-				conversationId: conversation_id,
-				...view.keyword_survey_results(result, keyword)
-			})
-		})
-	})
-	JobManager.startJob(user_id);
-}
