@@ -1,7 +1,6 @@
 // routes/index.js
 const express = require('express');
 const router = express.Router();
-
 const libKakaoWork = require('../libs/kakaoWork');
 
 // 크롤러 부분 import
@@ -9,11 +8,7 @@ const crawler = require('../libs/crawling');
 
 // view 부분 import
 const view = require('../view');
-// 키워드 데이터
-const keywords = require('../static/data/keywords')
-// keyWordService import
 const KeywordService = require('./KeywordService');
-
 
 router.get('/', async (req, res, next) => {
 
@@ -47,7 +42,6 @@ router.post('/request', async (req, res, next) => {
     switch (value) {
 			
         case 'keyword_survey':
-            // 설문조사용 모달 전송
             return res.json(view.keyword_survey());
             break;
 			
@@ -57,6 +51,7 @@ router.post('/request', async (req, res, next) => {
 			
         default:
     }
+	
     res.json("OK");
 });
 
@@ -70,24 +65,17 @@ router.post('/callback', async (req, res, next) => {
     } = req.body; 
 	
         switch (value) {
-				
             case 'keyword_survey_results':
-crawler.crawling(actions.keyword_select).then((result) => {
-	
-				let keyword = keywords[actions.keyword_select];
-                const keyword_survey_results = view.keyword_survey_results(result, keyword)
-                libKakaoWork.sendMessage({
-                    conversationId: message.conversation_id,
-                    ...keyword_survey_results
-                })
-	}).catch(err => {
-        console.log(err)
-    })
-    
+				await KeywordService.send_keyword_survey_result_msg(
+					actions.keyword_select,
+					message.conversation_id
+				);
                 break;
 
             case 'keyword_select_msg':
-                KeywordService.send_keyword_select_msg(message.conversation_id);
+				await KeywordService.send_keyword_select_msg(
+					message.conversation_id
+				);
                 break;
 				
             default:
@@ -95,7 +83,6 @@ crawler.crawling(actions.keyword_select).then((result) => {
 		
         res.json("OK");
 		
-    
 });
 
 module.exports = router;
