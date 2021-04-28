@@ -8,12 +8,12 @@ exports.bot_install_msg = {
     header_template.header(""),
     {
       "type": "text",
-      "text": "*안녕하세요* 😊",
+      "text": "*안녕하세요*  😊",
       "markdown": true
     },
     {
       "type": "text",
-      "text": "저는 각종 *키워드별 뉴스* 📰를\n *끌올(ing)👆* 하는 봇이에요!",
+      "text": "저는 *끌올링(ing) 봇*이라고 해요! \n지금부터, \n\n *키워드별 뉴스 정기 구독 서비스* \n   *'📰 뉴스 끌올링(ing) ⏰'*\n\n의 이용을 도와드릴게요! 💪",
       "markdown": true
     },
     {
