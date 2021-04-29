@@ -105,7 +105,8 @@ exports.set_rule_fail_callback_msg = () => {
             header_template.header(""),
             {
                 type: 'text',
-                text: `시간을 다시 설정해주세요.😥\n\n오후 11시 30분에 *끌올(ing)*하고 싶으시면 23:30으로 적어주세요! \n\n또는\n\n오전 9시에 *끌올(ing)*하고 싶으시면 9로 적어주세요!`
+                text: `시간을 다시 설정해주세요.😥\n\n오후 11시 30분에 *끌올(ing)* \n하고 싶으시면 23:30으로 적어주세요! \n\n또는\n\n오전 9시에 *끌올(ing)* 하고 싶으시면 \n9로 적어주세요!`,
+				markdown : true
             },
             {
                 "type": "button",
