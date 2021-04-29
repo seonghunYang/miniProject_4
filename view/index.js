@@ -62,7 +62,7 @@ exports.time_select_modal = () => {
                     "type": "input",
                     "name": "time",
                     "required": true,
-                    "placeholder": "ex) 55"
+                    "placeholder": "시간을 입력해주세요! ex) 13:45, 14"
                 }
             ]
         }
@@ -105,7 +105,7 @@ exports.set_rule_fail_callback_msg = () => {
             header_template.header(""),
             {
                 type: 'text',
-                text: `시간을 다시 설정해주세요.😥`
+                text: `시간을 다시 설정해주세요.😥\n\n오후 11시 30분에 *끌올(ing)*하고 싶으시면 23:30으로 적어주세요! \n\n또는\n\n오전 9시에 *끌올(ing)*하고 싶으시면 9로 적어주세요!`
             },
             {
                 "type": "button",
@@ -137,7 +137,7 @@ exports.set_job_callback_msg = (result, keyword, hour, minute) => {
       "type": "divider"
     },{
       "type": "text",
-      "text": `*끌올링(ing) 봇*를 설치해주셔서 감사드려요!🎉🎉\n\n앞으로 제가 *${hour}시 ${minute}분*에 위와 같이 *끌올(ing)* 해드릴게요!!\n`,
+      "text": `*끌올링(ing) 봇*를 설치해주셔서\n 감사드려요!🎉🎉\n\n앞으로 제가 *${hour}시 ${minute === undefined ? "00": minute}분*에 위와 같이\n *끌올(ing)* 해드릴게요!!\n`,
       "markdown": true
     },
 	{

@@ -88,6 +88,7 @@ const isValidHour = (hour) => {
 }
 
 const isValidMinute = (minute) => {
+	if(minute === undefined)return true;
 	minute = Number(minute);
 	return minute >=0 && minute <= 59;
 }
