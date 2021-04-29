@@ -8,13 +8,28 @@ const kakaoInstance = axios.create({
   },
 });
 
-// 유저 목록 검색 (1)
+
 exports.getUserList = async () => {
   const res = await kakaoInstance.get('/v1/users.list');
   return res.data.users;
 };
 
-// 채팅방 생성 (2)
+exports.getAllUserList = async () => {
+	let users = [];
+	let res = await kakaoInstance.get('/v1/users.list');
+    let cursor = res.data.cursor;
+	users = users.concat(res.data.users);
+
+  	while(1){
+	  res = await kakaoInstance.get(`/v1/users.list?cursor=${cursor}`);
+	  cursor = res.data.cursor
+	  if(cursor === null)break;
+  	  users = users.concat(res.data.users);
+  	}
+	
+	return users;
+}
+
 exports.openConversations = async ({ userId }) => {
   const data = {
     user_id: userId,
@@ -23,7 +38,6 @@ exports.openConversations = async ({ userId }) => {
   return res.data.conversation;
 };
 
-// 메시지 전송 (3)
 exports.sendMessage = async ({ conversationId, text, blocks }) => {
   const data = {
     conversation_id: conversationId,
