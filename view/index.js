@@ -75,12 +75,12 @@ exports.time_select_modal = () => {
     }
 }
 
-exports.keyword_select_msg = () => {
+exports.set_rule_ok_callback_msg = (hour, minute) => {
     return {
-        text: '키워드 고르기',
+        text: "시간 설정해주셔서 감사합니다!",
         blocks: [
             header_template.header(""),
-            {
+			{
                 "type": "section",
                 "content": {
                     "type": "text",
@@ -91,26 +91,6 @@ exports.keyword_select_msg = () => {
                     "type": "image_link",
                     "url": "https://img.icons8.com/ios/2x/separate-using-a-key-word.png"
                 }
-            },
-            {
-                type: 'button',
-                action_type: 'call_modal',
-                value: 'keyword_survey',
-                text: '키워드 고르기',
-                style: 'primary',
-            },
-        ],
-    }
-}
-
-exports.set_rule_ok_callback_msg = (hour, minute) => {
-    return {
-        text: "이제 설정한 시간에 알림 뉴스를 보실 수 있습니다!",
-        blocks: [
-            header_template.header(""),
-            {
-                type: 'text',
-                text: `매일 ${hour}시 ${minute}분에 알림뉴스를 보실 수 있습니다\n이제 보실 키워드를 골라주세요!😀`
             },
             {
                 type: 'button',
