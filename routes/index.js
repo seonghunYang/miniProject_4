@@ -11,7 +11,7 @@ const view = require('../view');
 const KeywordService = require('./KeywordService');
 const ScheduleService = require('./ScheduleService');
 
-router.get('/', async (req, res, next) => {
+router.get('/chatbot', async (req, res, next) => {
 
     const users = await libKakaoWork.getUserList();
     const conversations = await Promise.all(
