@@ -14,10 +14,12 @@
 > <img src="https://user-images.githubusercontent.com/42955392/116555000-d2821280-a936-11eb-8ea3-3e93dc38bd40.PNG" width="20%"></p>
 >
 ##### 2. 끌올(ing) 하실 뉴스의 키워드를 선택해주세요!  
+> <p align="left"><img src="https://user-images.githubusercontent.com/42955392/116555295-2e4c9b80-a937-11eb-833e-1e7987e582bd.PNG" width="20%"></p>
+> 
 >> 종합, 시사, 스포츠, 연예, 정치, 사회, 세계, IT 중에 선택하세요  
 >> 인기도 순으로 5개의 뉴스를 보내드립니다.
-> <p align="left"><img src="https://user-images.githubusercontent.com/42955392/116555295-2e4c9b80-a937-11eb-833e-1e7987e582bd.PNG" width="20%">
-> <img src="https://user-images.githubusercontent.com/42955392/116555340-3c022100-a937-11eb-9f6c-96dc355d2bc8.PNG" width="20%">
+>
+> <p align="left"><img src="https://user-images.githubusercontent.com/42955392/116555340-3c022100-a937-11eb-9f6c-96dc355d2bc8.PNG" width="20%">
 > <img src="https://user-images.githubusercontent.com/42955392/116555408-50deb480-a937-11eb-9833-3f0af1ec77c0.PNG" width="20%"></p>
 >
 ##### 3. 키워드에 맞는 예시 뉴스 5개의 URL이 날아 왔다면 구독 성공!  
