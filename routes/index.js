@@ -14,7 +14,7 @@ const ScheduleService = require('./ScheduleService');
 router.get('/chatbot', async (req, res, next) => {
 
     const users = await libKakaoWork.getAllUserList();
-    const conversations = await Promise.all(
+	const conversations = await Promise.all(
         users.map((user) => libKakaoWork.openConversations({
             userId: user.id
         }))
@@ -22,6 +22,7 @@ router.get('/chatbot', async (req, res, next) => {
 
 
     const messages = await Promise.all([
+		
         conversations.map((conversation) =>
             libKakaoWork.sendMessage({
                 conversationId: conversation.id,
