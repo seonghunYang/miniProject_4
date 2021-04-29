@@ -58,16 +58,10 @@ exports.time_select_modal = () => {
                     "text": "*끌올(ing) 👆* 하실 시간을 정해주세요!\n\n설정하신 시간마다 뉴스를 보내드릴게요😆",
                     "markdown": true
                 },
-                {
+				{
                     "type": "input",
-                    "name": "hour",
-                    "required": false,
-                    "placeholder": "ex) 16"
-                },
-                {
-                    "type": "input",
-                    "name": "minute",
-                    "required": false,
+                    "name": "time",
+                    "required": true,
                     "placeholder": "ex) 55"
                 }
             ]

@@ -66,9 +66,10 @@ router.post('/callback', async (req, res, next) => {
     } = req.body;
     switch (value) {
 		case 'check_and_set_time_service':
-			if(ScheduleService.is_valid_time(actions.hour, actions.minute)){
-				const hour = Number(actions.hour);
-				const minute = Number(actions.minute);
+					
+			if(ScheduleService.is_valid_time(actions.time)){
+				const hour = ScheduleService.getHour(actions.time);
+				const minute = ScheduleService.getMinute(actions.time);
 				await ScheduleService.create_job_and_set_rule(
 					message.user_id,
 					hour,

@@ -49,7 +49,9 @@ exports.send_set_job_callback_msg = (user_id ,selected_keyword, conversation_id)
 		})
 }
 
-exports.is_valid_time = (hour, minute) => {
+exports.is_valid_time = (time) => {
+	const hour = exports.getHour(time);
+	const minute = exports.getMinute(time);
 	return isValidHour(hour) && isValidMinute(minute);
 }
 
@@ -70,6 +72,14 @@ exports.send_set_rule_fail_callback_msg = async (conversation_id) => {
 		conversationId: conversation_id,
 		...view.set_rule_fail_callback_msg()
 	})
+}
+
+exports.getHour = (time) => {
+	return String(time).split(":")[0];
+}
+
+exports.getMinute = (time) => {
+	return String(time).split(":")[1];
 }
 
 const isValidHour = (hour) => {
