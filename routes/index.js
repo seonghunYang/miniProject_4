@@ -93,6 +93,7 @@ router.post('/callback', async (req, res, next) => {
 				message.conversation_id
 			)
 			await ScheduleService.send_set_job_callback_msg(
+				message.user_id,
 				actions.keyword_select,
 				message.conversation_id
 			)
@@ -102,6 +103,10 @@ router.post('/callback', async (req, res, next) => {
 
     res.json("OK");
 
+});
+
+router.get('/imgage', function(req, res, next) {
+  res.send('test');
 });
 
 module.exports = router;

@@ -34,13 +34,17 @@ exports.set_job_and_start = (user_id, selected_keyword, conversation_id) => {
 	JobManager.startJob(user_id);
 }
 
-exports.send_set_job_callback_msg = (selected_keyword, conversation_id) => {
+exports.send_set_job_callback_msg = (user_id ,selected_keyword, conversation_id) => {
 	crawler.crawling(selected_keyword)
 			.then((result) => {
 			const keyword = keywords[selected_keyword];
 			libKakaoWork.sendMessage({
 				conversationId: conversation_id,
-				...view.set_job_callback_msg(result, keyword)
+				...view.set_job_callback_msg(
+					result, 
+					keyword, 
+					JobManager.getHour(user_id), 
+					JobManager.getMinute(user_id))
 			})
 		})
 }

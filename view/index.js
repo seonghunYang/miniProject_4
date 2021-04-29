@@ -124,27 +124,46 @@ exports.set_rule_fail_callback_msg = () => {
     }
 }
 
-exports.set_job_callback_msg = (result, keyword) => {
+exports.set_job_callback_msg = (result, keyword, hour, minute) => {
 	const ret = {
         text: '키워드를 이용해 크롤링을 완료했습니다!',
         blocks: [
             header_template.header(keyword)
         ]
     };
-
+	
     for (let i = 0; i < 5; i++) {
         const title = result[i].title;
         const url = result[i].url;
         ret.blocks.push(keyword_survey_template.keyword_survey_result_item(i + 1, title, url));
-    }
-	
-	ret.blocks.push( {
+	}
+
+	ret.blocks.push(
+	{
       "type": "divider"
-    });
-	ret.blocks.push({
+    },{
       "type": "text",
-      "text": "앞으로 위와 같은 뉴스를 보실 수 있습니다. 설치해주셔서 감사힙니다!",
+      "text": `*끌올링(ing) 봇*를 설치해주셔서 감사드려요!🎉🎉\n\n앞으로 제가 *${hour}시 ${minute}분*에 위와 같이 *끌올(ing)* 해드릴게요!!\n`,
       "markdown": true
+    },
+	{
+      "type": "divider"
+    },{
+      "type": "text",
+      "text": "*끌올링(ing)* 이 어떻게 만들어졌는지 궁금하신가요?\n\n저희팀의 *github*에 놀러오세요!",
+      "markdown": true
+    },
+    {
+      "type": "context",
+      "content": {
+        "type": "text",
+        "text": "[*끌올링(ing) 팀*의 기록](https://github.com/seonghunYang/miniProject_4/tree/master)",
+        "markdown": true
+      },
+      "image": {
+        "type": "image_link",
+        "url": "https://img.icons8.com/bubbles/100/000000/github.png"
+      }
     });
 
     return ret;
