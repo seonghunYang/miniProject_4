@@ -7,8 +7,16 @@ class Job {
         this.job;
     	this.callback;
 	}
+	
+	getHour(){
+		return this.rule.hour;
+	}
+	
+	getMinute(){
+		return this.rule.minute;
+	}
 
-		setRule(hour, minute){
+	setRule(hour, minute){
 		this.rule.hour = hour;
 		this.rule.minute = minute;
 		this.rule.tz='Asia/Seoul';

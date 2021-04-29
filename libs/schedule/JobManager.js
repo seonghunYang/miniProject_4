@@ -5,6 +5,14 @@ class JobManager {
     constructor() {
         this.jobs = {};
     }
+	
+	getHour(userId){
+		return this.jobs[userId].getHour();
+	}
+	
+	getMinute(userId){
+		return this.jobs[userId].getMinute();
+	}
 
     createJob(userId){
         this.jobs[userId] = new Job();
