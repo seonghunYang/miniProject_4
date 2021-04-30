@@ -37,6 +37,9 @@ class Job {
     }
 	
 	start(){
+		if(this.job !== undefined){
+			return;
+		}
 		this.job = schedule.scheduleJob(this.rule, this.callback);
 	}
 

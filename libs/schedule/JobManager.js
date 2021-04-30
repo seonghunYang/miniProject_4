@@ -15,6 +15,7 @@ class JobManager {
 	}
 
     createJob(userId){
+		if(this.jobs[userId] !== undefined){return;}
         this.jobs[userId] = new Job();
     }
 	
