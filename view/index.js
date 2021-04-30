@@ -3,7 +3,7 @@ const header_template = require('../static/template/header');
 const keywords = require('../static/data/keywords');
 
 exports.bot_install_msg = {
-    "text": "뉴스 끌올ing 봇을 설치해보세요!",
+    "text": "끌올링(ing) 팀 - 뉴스 알림 챗봇!",
     "blocks": [
         header_template.header(""),
         {
