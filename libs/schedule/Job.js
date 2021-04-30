@@ -40,7 +40,12 @@ class Job {
 		if(this.job !== undefined){
 			return;
 		}
-		this.job = schedule.scheduleJob(this.rule, this.callback);
+		const rule = new schedule.RecurrenceRule();
+		rule.hour = this.rule.hour-9;
+		rule.minute = this.rule.minute;
+		this.job = schedule.scheduleJob(rule, this.callback);
+		console.log(this.job);
+		console.log(rule);
 	}
 
     cancel(){
